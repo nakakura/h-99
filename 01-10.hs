@@ -60,3 +60,16 @@ flatten (List x) = concatMap flatten x
 
 compress :: (Eq a) => [a] -> [a]
 compress x = foldl (\n x -> if last n == x then n else n ++ [x]) [head x] x
+
+--prob09
+
+pack :: (Eq a) => [a] -> [[a]]
+pack = foldr func []
+	where func x [] = [[x]]
+	      func x (y:ys) = if x == (head y) then ((x:y):ys) else [x]:y:ys
+
+--prob10
+encode :: (Eq a) => [a] -> [(Int,a)]
+encode = map (\x -> (length x, head x)) . pack
+
+
