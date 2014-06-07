@@ -44,5 +44,27 @@ myDrop list count = dropHelper list count count
 	      dropHelper (x:xs) count 1 = dropHelper xs count count
 	      dropHelper (x:xs) count n = x : (dropHelper xs count (n-1))
 
+--prob17
+split :: [a] -> Int -> ([a], [a])
+split (x:xs) n | n > 0 = let (f,l) = split xs (n-1) in (x : f, l)
+split xs _             = ([], xs)
+
+
+--prob18
+slice :: [a] -> Int -> Int -> [a]
+slice x m n = drop (m-1) $ take n x
+
+--prob19
+rotate :: [a] -> Int -> [a]
+rotate x n
+	| n >= 0 = drop n x ++ take n x
+	| otherwise = drop k x ++ take k x 
+	where k = length x + n
+
+--prob20
+removeAt :: Int -> [a] -> (a, [a])
+removeAt n x = (last . fst $ y, (take (n-1) . fst $ y) ++ (snd $ y))
+	where y = split x n
+
 
 
